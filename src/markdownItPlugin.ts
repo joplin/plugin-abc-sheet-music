@@ -23,7 +23,7 @@ export default function() {
 					element.style.display = 'none';
 					document.body.appendChild(element);
 					abcjs.renderAbc(elementId, token.content.trim());
-					html = element.innerHTML;
+					html = '<div style="background-color: white;">' + element.innerHTML + '</div>';
 				} catch (error) {
 					console.error(error);
 					return '<div style="border: 1px solid red; padding: 10px;">Could not render ABC notation: ' + htmlentities(error.message) + '</div>';
