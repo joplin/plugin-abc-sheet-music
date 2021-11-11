@@ -23,7 +23,7 @@ export default function() {
 					element.style.display = 'none';
 					document.body.appendChild(element);
 					abcjs.renderAbc(elementId, token.content.trim());
-					html = '<div style="background-color: white;">' + element.innerHTML + '</div>';
+					html = '<div class="abc-notation-block">' + element.innerHTML + '</div>';
 				} catch (error) {
 					console.error(error);
 					return '<div style="border: 1px solid red; padding: 10px;">Could not render ABC notation: ' + htmlentities(error.message) + '</div>';
@@ -33,6 +33,20 @@ export default function() {
 
 				return html;
 			};
+		},
+
+		assets: function() {
+			return [
+				{
+					inline: true,
+					mime: 'text/css',
+					text: `
+						.abc-notation-block svg {
+							background-color: white;
+						}
+					`,
+				},
+			];
 		},
 	}
 }
