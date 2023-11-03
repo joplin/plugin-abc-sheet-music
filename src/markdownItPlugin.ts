@@ -1,10 +1,38 @@
+const JSON5 = require('json5').default;
 const abcjs = require("abcjs");
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = new Entities().encode;
 
+interface AbcContent {
+	options: any;
+	markup: string;
+}
+
+const parseOptions = (options:string):any => {
+	options = options.trim();
+	if (!options) return {};
+
+	try {
+		const o = JSON5.parse(options);
+		return o ? o : {};
+	} catch (error) {
+		error.message = 'Could not parse options: ' + options + ': ' + error.message;
+		throw error;
+	}
+}
+
+const parseAbcContent = (content:string):AbcContent => {
+	const pieces = content.split(/\n---\n/g);
+	if (pieces.length < 2) return { markup: content.trim(), options: {} };
+
+	return {
+		markup: pieces[1].trim(),
+		options: parseOptions(pieces[0]),
+	};
+}
 export default function() { 
 	return {
-		plugin: function(markdownIt, _options) {
+		plugin: function(markdownIt, pluginOptions) {
 			const defaultRender = markdownIt.renderer.rules.fence || function(tokens, idx, options, env, self) {
 				return self.renderToken(tokens, idx, options, env, self);
 			};
@@ -19,10 +47,13 @@ export default function() {
 				let html = '';
 
 				try {
+					const globalOptions = parseOptions(pluginOptions.settingValue('options'));
+
 					element.setAttribute('id', elementId);
 					element.style.display = 'none';
 					document.body.appendChild(element);
-					abcjs.renderAbc(elementId, token.content.trim());
+					const parsed = parseAbcContent(token.content);
+					abcjs.renderAbc(elementId, parsed.markup, { ...globalOptions, ...parsed.options });
 					html = '<div class="abc-notation-block">' + element.innerHTML + '</div>';
 				} catch (error) {
 					console.error(error);

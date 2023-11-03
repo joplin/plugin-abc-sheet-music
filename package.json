@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-abc-sheet-music",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "dist": "webpack --joplin-plugin-config buildMain && webpack --joplin-plugin-config buildExtraScripts && webpack --joplin-plugin-config createArchive",
     "prepare": "npm run dist",
@@ -25,7 +25,8 @@
     "yargs": "^16.2.0"
   },
   "dependencies": {
-    "abcjs": "~6.1.0",
-    "html-entities": "^1.2.1"
+    "abcjs": "^6.2.2",
+    "html-entities": "^1.2.1",
+    "json5": "^2.2.3"
   }
 }
