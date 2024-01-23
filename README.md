@@ -9,7 +9,7 @@ This plugins for [Joplin](https://joplinapp.org) renders ABC notation into sheet
 
 For example:
 
-![](./PeacherineRag.png)
+![](./images/PeacherineRag.png)
 
 ## Installation
 
@@ -46,7 +46,7 @@ For example, this would add violin tablatures to the sheet music:
 	|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|
 	```
 
-![](./Tablature.png)
+![](./images/Tablature.png)
 
 Note that even in this case the global options still apply. The per-sheet options simply override the global ones if there's a conflict.
 
