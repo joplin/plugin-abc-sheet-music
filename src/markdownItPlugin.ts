@@ -48,13 +48,14 @@ export default function() {
 
 				try {
 					const globalOptions = parseOptions(pluginOptions.settingValue('options'));
+					const forceLightTheme = pluginOptions.settingValue('forceLightTheme');
 
 					element.setAttribute('id', elementId);
 					element.style.display = 'none';
 					document.body.appendChild(element);
 					const parsed = parseAbcContent(token.content);
 					abcjs.renderAbc(elementId, parsed.markup, { ...globalOptions, ...parsed.options });
-					html = '<div class="abc-notation-block">' + element.innerHTML + '</div>';
+					html = `<div class="abc-notation-block ${forceLightTheme ? ' force-light' : ''}">` + element.innerHTML + '</div>';
 				} catch (error) {
 					console.error(error);
 					return '<div style="border: 1px solid red; padding: 10px;">Could not render ABC notation: ' + htmlentities(error.message) + '</div>';
@@ -72,8 +73,13 @@ export default function() {
 					inline: true,
 					mime: 'text/css',
 					text: `
-						.abc-notation-block svg {
+						.abc-notation-block.force-light svg {
 							background-color: white;
+							color: black;
+						}
+						.abc-notation-block:not(.force-light) svg {
+							background-color: inherit;
+							color: inherit;
 						}
 					`,
 				},
