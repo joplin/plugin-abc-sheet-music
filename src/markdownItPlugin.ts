@@ -48,13 +48,16 @@ export default function() {
 
 				try {
 					const globalOptions = parseOptions(pluginOptions.settingValue('options'));
+					const forceLightTheme = pluginOptions.settingValue('forceLightTheme');
 
 					element.setAttribute('id', elementId);
 					element.style.display = 'none';
 					document.body.appendChild(element);
 					const parsed = parseAbcContent(token.content);
 					abcjs.renderAbc(elementId, parsed.markup, { ...globalOptions, ...parsed.options });
-					html = '<div class="abc-notation-block">' + element.innerHTML + '</div>';
+
+					const style = forceLightTheme ? 'color: black; background-color: white;' : 'color: inherit; background-color: inherit;';
+					html = `<div class="abc-notation-block" style="${style}">` + element.innerHTML + '</div>';
 				} catch (error) {
 					console.error('ABC:', error);
 					return '<div style="border: 1px solid red; padding: 10px;">Could not render ABC notation: ' + htmlentities(error.message) + '</div>';
@@ -79,7 +82,8 @@ export default function() {
 					mime: 'text/css',
 					text: `
 						.abc-notation-block svg {
-							background-color: white;
+							background-color: inherit;
+							color: inherit;
 						}
 					`,
 				},
