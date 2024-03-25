@@ -56,10 +56,16 @@ export default function() {
 					abcjs.renderAbc(elementId, parsed.markup, { ...globalOptions, ...parsed.options });
 					html = '<div class="abc-notation-block">' + element.innerHTML + '</div>';
 				} catch (error) {
-					console.error(error);
+					console.error('ABC:', error);
 					return '<div style="border: 1px solid red; padding: 10px;">Could not render ABC notation: ' + htmlentities(error.message) + '</div>';
 				} finally {
-					document.body.removeChild(element);
+					// Remove the element appears to fail when exporting to PDF ("element is not a
+					// child of parent"). So we put this in a try/catch block too.
+					try {
+						document.body.removeChild(element);
+					} catch (error) {
+						console.warn('ABC: Could not remove child element:', error);
+					}
 				}
 
 				return html;
