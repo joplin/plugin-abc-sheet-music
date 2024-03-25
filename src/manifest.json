@@ -2,7 +2,7 @@
 	"manifest_version": 1,
 	"id": "org.joplinapp.plugins.AbcSheetMusic",
 	"app_min_version": "2.13.5",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"name": "ABC Sheet Music Plugin",
 	"description": "Turns ABC text notation into sheet music",
 	"author": "Laurent Cozic",
