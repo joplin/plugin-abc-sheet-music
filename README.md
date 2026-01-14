@@ -1,5 +1,6 @@
 > [!WARNING]  
-> The ABC functionality is now part of the main application so this repository is no longer active
+> The ABC functionality is now part of the main application so this repository is no longer active.
+> Documentation is at https://joplinapp.org/help/apps/markdown#musical-notation
 
 * * *
 
